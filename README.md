@@ -31,5 +31,9 @@
     }
 }
 
-**
+
+## Usage
+需要安装sshpass
+
+python falcon_agent.py
 
