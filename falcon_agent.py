@@ -41,23 +41,23 @@ def change_file(config,host_info):
         json.dump(old_dict,f,indent=4)
         
 def mk_dir(dir,host_info):
-        p=subprocess.Popen("sudo sshpass -p %s ssh %s@%s 'mkdir -p %s'" % (host_info['passwd'],host_info['user'],host_info['net_ip'],dir),shell=True,cwd="/home/work/scp_agent/",stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        p=subprocess.Popen("sudo sshpass -p %s ssh %s@%s 'mkdir -p %s'" % (host_info['passwd'],host_info['user'],host_info['net_ip'],dir),shell=True,cwd="./",stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         stdout,stderr=p.communicate()
         return stdout,stderr
     
 def scp_file(dir,host_info):
-        p=subprocess.Popen("sudo sshpass -p %s scp -rp open-falcon/* %s@%s:%s/" % (host_info['passwd'],host_info['user'],host_info['net_ip'],dir),shell=True,cwd="/home/work/scp_agent/",stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        p=subprocess.Popen("sudo sshpass -p %s scp -rp open-falcon/* %s@%s:%s/" % (host_info['passwd'],host_info['user'],host_info['net_ip'],dir),shell=True,cwd="./",stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         stdout,stderr=p.communicate()
         return stdout,stderr
  
 ## start open falcon agent
 def start_openfalcon_agent(dir,host_info):
-        p=subprocess.Popen("sshpass -p %s ssh %s@%s 'cd %s && ./open-falcon stop agent && ./open-falcon start agent'" % (host_info['passwd'],host_info['user'],host_info['net_ip'],dir),shell=True,cwd="/home/work/scp_agent/",stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        p=subprocess.Popen("sshpass -p %s ssh %s@%s 'cd %s && ./open-falcon stop agent && ./open-falcon start agent'" % (host_info['passwd'],host_info['user'],host_info['net_ip'],dir),shell=True,cwd="./",stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         stdout,stderr=p.communicate()
         return stdout,stderr
     
 def check_openfalcon_agent(dir,host_info):
-        p=subprocess.Popen("sshpass -p %s ssh %s@%s 'cd %s && ./open-falcon check'" % (host_info['passwd'],host_info['user'],host_info['net_ip'],dir),shell=True,cwd="/home/work/scp_agent/",stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        p=subprocess.Popen("sshpass -p %s ssh %s@%s 'cd %s && ./open-falcon check'" % (host_info['passwd'],host_info['user'],host_info['net_ip'],dir),shell=True,cwd="./",stdout=subprocess.PIPE,stderr=subprocess.PIPE)
         stdout,stderr=p.communicate()
         return stdout,stderr
  
@@ -79,7 +79,6 @@ def main():
             ret = "FAILED"
         else:
             str_list = lines[0].split()
-            print(str_list[1])
             if str_list[1] == "UP":
                 ret = "OK"
             else:
